@@ -3,22 +3,42 @@
     <div class="con">
       <h2>登录</h2>
       <div>
-        <input type="text" />
+        <input type="text" v-model="user.username"/>
       </div>
       <div>
-        <input type="text" />
+        <input type="text" v-model="user.password"/>
       </div>
-      <div><button @click="$router.push('/index')">登录</button></div>
+      <div><button @click="login">登录</button></div>
     </div>
   </div>
 </template>
 <script>
+import {reqUserLogin} from '../../util/request'
+import {mapActions,mapGetters}  from 'vuex'
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      user:{
+        username:'',
+        password:'',
+      }
+    };
   },
-  methods: {},
+  methods: {
+    ...mapActions({
+      requsetUserLogin:'user/requsetUserLogin',
+    }),
+    // 登录
+    login(){
+          reqUserLogin(this.user).then(res=>{
+             console.log(res.data.list);
+             
+              this.requsetUserLogin(res.data.list)
+               this.$router.push('/index')
+          })
+    }
+  },
   mounted() {},
 };
 </script>

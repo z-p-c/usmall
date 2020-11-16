@@ -1,11 +1,10 @@
 
 
-import Vue from 'vue'
-import {reqRoleList} from '../../util/request'
+import {reqGoodsList} from '../../util/request'
 
 
 const state={
-    list:[] 
+    list:[]  
 }   
 
 const mutations={
@@ -15,8 +14,8 @@ const mutations={
 }
 
 const actions={
-    reqRoleList(context){
-        reqRoleList().then(res=>{
+    requsetGoodsList(context){
+        reqGoodsList({istree:true}).then(res=>{
             context.commit('changeList',res.data.list)
         })        
     }
@@ -34,7 +33,6 @@ export default {
     mutations,
     actions,
     getters,
+  
     namespaced:true 
 }
-
-

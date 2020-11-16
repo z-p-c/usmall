@@ -2,18 +2,14 @@
   <div>
     <el-dialog :title="info.title" :visible.sync="info.isShow">
       <el-form :model="form">
-        <el-form-item label="所属角色" :label-width="width">
-          <el-select v-model="form.pid" placeholder="请选择">
-            <el-option label="请选择" :value="0" disabled></el-option>
-            <!-- 循环添加的数据 -->
-            <el-option
-              v-for="item in list"
-              :key="item.id"
-              :label="item.rolename"
-              :value="item.id"
-            ></el-option>
-          </el-select>
-        </el-form-item>
+   
+         <el-form-item label="所属角色" :label-width="width">
+                    <el-select v-model="form.roleid" >
+                        <el-option value="" label="--请选择--" disabled></el-option>
+                        <el-option v-for="item in list" :key="item.id" :label="item.rolename" :value="item.id"></el-option>
+                       
+                    </el-select>
+                </el-form-item>
         <el-form-item label="用户名" :label-width="width">
           <el-input v-model="form.username" autocomplete="off"></el-input>
         </el-form-item>
@@ -73,7 +69,7 @@ export default {
     // 初始化
     empty() {
       this.form = {
-        roleid: 0,
+        roleid: '',
         username: "",
         password: "",
         status: 1,
@@ -82,11 +78,9 @@ export default {
     //添加数据到数据库
     add() {
       reqUserAdd(this.form).then((res) => {
-        // this.reqRoleList()
         this.hide();
-        
-        this.requestUserCount();
-        // this.getCurrentPage(this.page+1);
+        console.log(this.form.roleid);
+        this.requestUserCount();     
         this.requestUserList();
         this.empty()
       });
@@ -118,8 +112,8 @@ export default {
     this.requestUserList();
     this.requestUserCount();
     this.requestUserList();
-    this.getCurrentPage(this.page+1);
-        
+    this.getCurrentPage(this.page);
+    
   },
 };
 </script>

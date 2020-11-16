@@ -9,6 +9,7 @@
           <el-select v-model="form.pid" placeholder="请选择活动区域">
             <el-option label="顶级菜单" :value="0"></el-option>
             <!-- 循环添加的数据 -->
+            <el-option v-for="item in list" :key="item.id" :label="item.title" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
@@ -60,6 +61,11 @@ import {indexRouters} from '../../../router/index'
 import {reqMunuAdd,reqMenuOne,reqMenuEdit} from '../../../util/request'
 import {mapActions,mapGetters} from 'vuex'
 export default {
+  computed: {
+    ...mapGetters({
+      list:'menu/list'
+    })
+  },
     props:['info'],
   components: {},
   data() {
@@ -108,7 +114,6 @@ export default {
         look(id){
           reqMenuOne({id:id}).then(res=>{
               this.form = res.data.list
-              // 目的就是为了更新数据的时候获取id
               this.form.id=id
           })  
         },

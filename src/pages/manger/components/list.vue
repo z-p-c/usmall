@@ -87,13 +87,6 @@ export default {
         });
       });
     },
-    // //获取总页数
-    // getCount(){
-    //   reqUserCount().then(res=>{
-
-    //   })
-    // },
-    // 点击当前页码数修改vuex中的page的值
     changeCurrentPage(p){
       console.log(p);
       this.getCurrentPage(p)
@@ -102,7 +95,6 @@ export default {
   mounted() {
     this.requestUserList();
     this.reqRoleList();
-    // this.list.rolename = this.roleList.rolename;
     this.requestUserCount()
   },
 };

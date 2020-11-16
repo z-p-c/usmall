@@ -1,9 +1,5 @@
 <template>
 <div>
-      <!-- <v-slot>
-        <slot >我是父组件的slot</slot>
-        <slot slot-scope="data">我是父组件从子组件slot拿来的数据{{data}}</slot>
-    </v-slot> -->
     <el-button type="primary" @click="willAdd">添加</el-button >
     <v-list @edit='edit($event)'></v-list>
     <v-add :info='info' ref='one'></v-add>
@@ -36,7 +32,6 @@ methods:{
     },
     //编辑
     edit(e){
-        console.log(e);  //此时获取的是每一条数据的id
         this.info.isShow = true,
         this.info.isAdd = false
         this.$refs.one.look(e)

@@ -8,12 +8,15 @@
       default-expand-all
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="id" label="菜单编号" sortable width="180">
+      <el-table-column prop="id" label="分类编号" sortable width="180">
       </el-table-column>
-      <el-table-column prop="title" label="菜单名称" sortable width="180">
+      <el-table-column prop="catename" label="分类名称" sortable width="180">
       </el-table-column>
-      <el-table-column prop="icon" label="菜单图标"> </el-table-column>
-      <el-table-column prop="url" label="菜单地址"> </el-table-column>
+      <el-table-column  label="图片"> 
+        <template slot-scope="scope">
+            <img :src='$preImg+scope.row.img' alt="">
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="状态">
         <!-- 作用域插槽 用来获取数据-->
         <template slot-scope="scope">
@@ -40,13 +43,13 @@
 <script>
 //解构store中的数据
 import {mapActions,mapGetters} from 'vuex'
-import {reqMenuDel} from '../../../util/request'
+import {reqClassifyDel} from '../../../util/request'
 // 导入弹框
 import {alertSuccess,alertwarning}  from '../../../util/alert'
 export default {
   computed: {
     ...mapGetters({
-      list:'menu/list'
+      list:'classify/list'
     })
   },
   components: {},
@@ -57,7 +60,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      reqMenuList:'menu/reqMenuList'
+      requsetClassifyList:'classify/requsetClassifyList'
     }),
     // 删除
     del(id){
@@ -68,8 +71,8 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          reqMenuDel({id:id}).then(res=>{
-            this.reqMenuList()
+          reqClassifyDel({id:id}).then(res=>{
+            this.requsetClassifyList()
             alertSuccess(res.data.msg)
         })
          
@@ -86,9 +89,13 @@ export default {
     }
   },
   mounted() {
-    this.reqMenuList()
+    this.requsetClassifyList()
   },
 };
 </script>
 <style scoped>
+img{
+  width: 80px;
+  height: 80px;
+}
 </style>
